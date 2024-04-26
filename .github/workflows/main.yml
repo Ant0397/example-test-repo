@@ -1,0 +1,24 @@
+name: Run Cypress UI
+
+on:
+  repository_dispatch:
+    types: [run-ui-tests]
+    
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Echo varaibles in payload 
+        run: |
+          run_number=${{ github.event.client_payload.run_number }}
+          repo=${{ github.event.client_payload.repo }}
+          commit=${{ github.event.client_payload.commit }}
+          echo "Run: " $run_number
+          echo "Repo: " $repo
+          echo "Commit: " $commit
+          
+      # Cypress tests etc go here...
